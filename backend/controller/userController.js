@@ -293,11 +293,10 @@ export const updateOrder = (req, res) => {
   } catch (error) {}
 };
 
-
 export const getUserPrivousOrder = async (req, res) => {
   try {
     const { userId } = req.body;
-   
+
     // if (!userId) {
     //   return res.status(400).json({ message: "User not found" });
     // }
@@ -308,13 +307,30 @@ export const getUserPrivousOrder = async (req, res) => {
                 INNER JOIN users AS u ON o.user_id = u.id
                 WHERE u.id = ? and date(createdAt) = CURDATE()`;
 
-    dbConection.query(q,[userId], (err,data)=>{
+    dbConection.query(q, [userId], (err, data) => {
       if (err) {
         return res.status(400).json({ message: err.message });
       } else {
         return res.status(200).json({ result: data });
       }
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server error" });
+  }
+};
+
+export const deleteOrder = async (req, res) => {
+  try {
+    const {id} = req.params;
+
+    const q = `DELETE FROM orders WHERE id = ?`;
+
+    dbConection.query(q,[id], (err, data)=>{
+      if(err) return res.status(400).json({ message: err.message });
+     
+      return res.status(200).json({message:"Order Deleted successfully."})
     })
+    
   } catch (error) {
     res.status(500).json({ message: "Internal Server error" });
   }

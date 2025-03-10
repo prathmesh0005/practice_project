@@ -58,7 +58,7 @@ export default function Login() {
                 </div>
                 <div className="d-flex justify-content-center">
                   <button type="submit" className="btn border border-dark me-2" style={{ background: "#979796", color: "black" }}>
-                    LOG IN
+                    <b>LOG IN</b>
                   </button>
                 </div>
               </form>

@@ -50,14 +50,14 @@ export default function Header() {
                 to="/register"
                 style={{ background: "#9d9a97", color: "black" }}
               >
-                Sign Up
+                <b>Sign Up</b>
               </Link>
               <Link
                 className="btn border border-dark me-2"
                 to="/login"
                 style={{ background: "#9d9a97", color: "black" }}
               >
-                Login
+                <b>Login</b>
               </Link>
             </div>
           </nav>
@@ -77,7 +77,7 @@ export default function Header() {
                 style={{ background: "#9d9a97", color: "black" }}
                 onClick={handleLogout}
               >
-                Sign Out
+                <b>Sign Out</b>
               </button>
             </div>
           </nav>

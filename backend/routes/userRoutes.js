@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUser, register,userlogin,userOrder,fetchOrder, getUserOrderName, updateOrder, logOut,getUserPrivousOrder} from '../controller/userController.js';
+import { getAllUser, register,userlogin,userOrder,fetchOrder, getUserOrderName, updateOrder, logOut,getUserPrivousOrder,deleteOrder} from '../controller/userController.js';
 import {allItems} from '../controller/itemController.js';
 import {verifyJWT} from '../middleware/auth.js';
 
@@ -16,5 +16,6 @@ router.route("/userOrderItem").get(verifyJWT,getUserOrderName);
 router.route("/update-order").put(verifyJWT,updateOrder);
 router.route("/logout").put(verifyJWT,logOut);
 router.post("/user-previous-order",getUserPrivousOrder);
+router.delete("/delete-order/:id",deleteOrder)
 
 export default router;

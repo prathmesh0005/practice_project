@@ -46,7 +46,7 @@ export default function AdminDashboard() {
             <div className="fw-semibold">{`${dd}/${mm}/${yy}`}</div>
           </div>
           <div className="mt-4">
-            <table className="table table-striped">
+            <table className="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -64,19 +64,19 @@ export default function AdminDashboard() {
             </table>
           </div>
           <div className="d-flex mt-4 gap-3 justify-content-center">
-            <h6 className="shadow-lg  p-2 rounded bg-info">
+            <h6 className="shadow-lg  p-2 rounded" style={{background:"#c0b2a4", color:"black"}}>
               Total Chai <span className="fw-bold">{countChai}</span>{" "}
             </h6>
-            <h6 className="shadow p-2 rounded bg-info">
+            <h6 className="shadow p-2 rounded" style={{background:"#c0b2a4", color:"black"}}>
               Total Coffee <span className="fw-bold">{countCoffee}</span>{" "}
             </h6>
-            <h6 className="shadow p-2 rounded bg-info">
+            <h6 className="shadow p-2 rounded" style={{background:"#c0b2a4", color:"black"}}>
               Total Black Coffee{" "}
               <span className="fw-bold">{countBlackCoffee}</span>{" "}
             </h6>
           </div>
           <div className="d-flex mt-4 justify-content-center">
-            <p className="h6 shadow p-2 rounded bg-warning">
+            <p className="h6 shadow p-2 rounded" style={{background:"#68625c", color:"black"}}>
               Total Order <span className="fw-bold">{count}</span>{" "}
             </p>
           </div>
