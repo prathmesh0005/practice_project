@@ -1,11 +1,11 @@
-import backImg from '../assets/background.jpg'
-
-export default function Home(){
-  return(
+export default function Home() {
+  return (
     <>
-      <div className='d-flex justify-content-center align-item-center vh-100'>
-       <img src={backImg} alt="Not found" className="img-fluid w-100 h-100 object-fit-cover"/>
+      <div className="container-fluid login-bg-container">
+        <p style={{ color: "black", fontFamily: "Verdana", fontSize:40 }}>
+          <b>Fuel Your Code with Every Sip! 💻☕</b>
+        </p>
       </div>
     </>
-  )
+  );
 }

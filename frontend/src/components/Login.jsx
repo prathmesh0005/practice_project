@@ -33,9 +33,22 @@ export default function Login() {
   return (
     <>
       <div className="container-fluid d-flex login-bg-container">
-        <div className="container d-flex justify-content-center align-self-start" style={{marginTop:200}}>
-          <div className="card p-4 shadow-lg border-dark shadow-lg" style={{ width: "330px", background:"transparent" ,backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(10px)",}}>
-            <h5 className="text-center mb-4"><strong>Login</strong></h5>
+        <div
+          className="container d-flex justify-content-center align-self-start"
+          style={{ marginTop: 200 }}
+        >
+          <div
+            className="card p-4 shadow-lg border-dark shadow-lg"
+            style={{
+              width: "330px",
+              background: "transparent",
+              backdropFilter: "blur(2px)",
+              WebkitBackdropFilter: "blur(10px)",
+            }}
+          >
+            <h5 className="text-center mb-4">
+              <strong>Login</strong>
+            </h5>
             <div className="form">
               <form action="" onSubmit={handleLogin}>
                 <div className="mb-3">
@@ -57,7 +70,11 @@ export default function Login() {
                   />
                 </div>
                 <div className="d-flex justify-content-center">
-                  <button type="submit" className="btn border border-dark me-2" style={{ background: "#979796", color: "black" }}>
+                  <button
+                    type="submit"
+                    className="btn border border-dark me-2"
+                    style={{ background: "#979796", color: "black" }}
+                  >
                     <b>LOG IN</b>
                   </button>
                 </div>
@@ -69,5 +86,3 @@ export default function Login() {
     </>
   );
 }
-
-

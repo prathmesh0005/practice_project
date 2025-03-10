@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import AdminDashboard from "./components/AdminDashboard";
 import { AuthProvider } from "./contaxt/AuthContext";
 import Dashboard from "./components/Dashboard";
-import UpdateOrder from "./components/UpdateOrder";
 
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/update" element={<UpdateOrder />} />
           </Route>
         </Routes>
       </BrowserRouter>

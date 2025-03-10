@@ -36,100 +36,68 @@ export default function AdminDashboard() {
 
   return (
     <>
-    <div className="container-fluid d-flex login-bg-container">
-    <div className="container d-flex mt-5 justify-content-center align-self-start" >
-        <div className="card p-4 shadow-lg" style={{ width: "700px", background:"#eae9e7" }}>
-          <div className="d-flex align-items-center position-relative mt-4">
-            <h4 className="position-absolute start-50 translate-middle-x mb-4">
-              Todays Order
-            </h4>
-            <div className="fw-semibold">{`${dd}/${mm}/${yy}`}</div>
-          </div>
-          <div className="mt-4">
-            <table className="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Order</th>
-                </tr>
-              </thead>
-              <tbody>
-                {order.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.Name}</td>
-                    <td>{item.Item}</td>
+      <div className="container-fluid d-flex login-bg-container">
+        <div className="container d-flex mt-5 justify-content-center align-self-start">
+          <div
+            className="card p-4 shadow-lg"
+            style={{ width: "700px", background: "#eae9e7" }}
+          >
+            <div className="d-flex align-items-center position-relative mt-4">
+              <h4 className="position-absolute start-50 translate-middle-x mb-4">
+                Todays Order
+              </h4>
+              <div className="fw-semibold">{`${dd}/${mm}/${yy}`}</div>
+            </div>
+            <div className="mt-4">
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Order</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="d-flex mt-4 gap-3 justify-content-center">
-            <h6 className="shadow-lg  p-2 rounded" style={{background:"#c0b2a4", color:"black"}}>
-              Total Chai <span className="fw-bold">{countChai}</span>{" "}
-            </h6>
-            <h6 className="shadow p-2 rounded" style={{background:"#c0b2a4", color:"black"}}>
-              Total Coffee <span className="fw-bold">{countCoffee}</span>{" "}
-            </h6>
-            <h6 className="shadow p-2 rounded" style={{background:"#c0b2a4", color:"black"}}>
-              Total Black Coffee{" "}
-              <span className="fw-bold">{countBlackCoffee}</span>{" "}
-            </h6>
-          </div>
-          <div className="d-flex mt-4 justify-content-center">
-            <p className="h6 shadow p-2 rounded" style={{background:"#68625c", color:"black"}}>
-              Total Order <span className="fw-bold">{count}</span>{" "}
-            </p>
+                </thead>
+                <tbody>
+                  {order.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.Name}</td>
+                      <td>{item.Item}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="d-flex mt-4 gap-3 justify-content-center">
+              <h6
+                className="shadow-lg  p-2 rounded"
+                style={{ background: "#c0b2a4", color: "black" }}
+              >
+                Total Chai <span className="fw-bold">{countChai}</span>{" "}
+              </h6>
+              <h6
+                className="shadow p-2 rounded"
+                style={{ background: "#c0b2a4", color: "black" }}
+              >
+                Total Coffee <span className="fw-bold">{countCoffee}</span>{" "}
+              </h6>
+              <h6
+                className="shadow p-2 rounded"
+                style={{ background: "#c0b2a4", color: "black" }}
+              >
+                Total Black Coffee{" "}
+                <span className="fw-bold">{countBlackCoffee}</span>{" "}
+              </h6>
+            </div>
+            <div className="d-flex mt-4 justify-content-center">
+              <p
+                className="h6 shadow p-2 rounded"
+                style={{ background: "#68625c", color: "black" }}
+              >
+                Total Order <span className="fw-bold">{count}</span>{" "}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
-    </div>
-
-      {/* <div className="container d-flex mt-5 justify-content-center align-item-center">
-        <div className="card p-4 shadow-lg" style={{ width: "700px" }}>
-          <div className="d-flex align-items-center position-relative mt-4">
-            <h4 className="position-absolute start-50 translate-middle-x mb-4">
-              Todays Order
-            </h4>
-            <div className="fw-semibold">{`${dd}/${mm}/${yy}`}</div>
-          </div>
-          <div className="mt-4">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Order</th>
-                </tr>
-              </thead>
-              <tbody>
-                {order.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.Name}</td>
-                    <td>{item.Item}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="d-flex mt-4 gap-3 justify-content-center">
-            <h6 className="shadow-lg  p-2 rounded bg-info">
-              Total Chai <span className="fw-bold">{countChai}</span>{" "}
-            </h6>
-            <h6 className="shadow p-2 rounded bg-info">
-              Total Coffee <span className="fw-bold">{countCoffee}</span>{" "}
-            </h6>
-            <h6 className="shadow p-2 rounded bg-info">
-              Total Black Coffee{" "}
-              <span className="fw-bold">{countBlackCoffee}</span>{" "}
-            </h6>
-          </div>
-          <div className="d-flex mt-4 justify-content-center">
-            <p className="h6 shadow p-2 rounded bg-warning">
-              Total Order <span className="fw-bold">{count}</span>{" "}
-            </p>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }
