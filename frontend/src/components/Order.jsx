@@ -77,8 +77,9 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
   const handleDeleteOrder = async (e) => {
     e.preventDefault();
     try {
+      alert("Ary you sure to delete this order");
       const res = await axios.delete(deleteURL);
-      console.log(res.data);
+      // console.log(res.data);
       refreshOrderData();
     } catch (error) {
       console.log(error.message);

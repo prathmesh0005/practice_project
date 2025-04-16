@@ -10,6 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, setIsLoggedIn } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("")
   const navigate = useNavigate();
 
   async function handleLogin(e) {
@@ -26,7 +27,11 @@ export default function Login() {
       setIsLoggedIn(true);
       data.user.role === "user" ? navigate("/dashboard") : navigate("/admin");
     } catch (error) {
-      console.log(error);
+      if (error.response && error.response.data.message) {
+        setErrorMessage(error.response.data.message)
+      }else{
+        setErrorMessage("Something wents wrong please try again!")
+      }
     }
   }
 
@@ -53,7 +58,7 @@ export default function Login() {
               <form action="" onSubmit={handleLogin}>
                 <div className="mb-3">
                   <input
-                    type="text"
+                    type="email"
                     onChange={(e) => setEmail(e.target.value)}
                     className="form-control border-info-subtle"
                     placeholder="email"
@@ -80,6 +85,33 @@ export default function Login() {
                 </div>
               </form>
             </div>
+
+
+            {errorMessage && (
+              <div
+                className="alert alert-warning position-absolute top-50 start-50 translate-middle shadow-lg p-4 rounded"
+                style={{
+                  width: "400px",
+                  textAlign: "center",
+                  zIndex: 1050,
+                  border: "1px solid #f5c6cb",
+                }}
+                role="alert"
+              >
+                <p className="mb-3 " style={{ color: "black", fontWeight:"bold" }}>{errorMessage}</p>
+                <button
+                  className="btn btn-warning"
+                  onClick={() => {
+                    setErrorMessage("");
+                    setEmail("")
+                    setPassword("")
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            )}
+
           </div>
         </div>
       </div>

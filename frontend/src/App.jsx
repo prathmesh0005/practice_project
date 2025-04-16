@@ -3,10 +3,11 @@ import Register from "./components/Register";
 import Layout from "./Layout";
 import Login from "./components/Login";
 import Home from "./components/Home";
-import AdminDashboard from "./components/AdminDashboard";
 import { AuthProvider } from "./contaxt/AuthContext";
 import Dashboard from "./components/Dashboard";
-
+import Bill from "./components/admin/Bill";
+import AdminLayouts from "./layouts/AdminLayouts";
+import UserOrder from "./components/UserOrder";
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin" element={<AdminLayouts />}>
+              <Route path="" element={<UserOrder />} />
+              <Route path="/admin/bill" element={<Bill />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

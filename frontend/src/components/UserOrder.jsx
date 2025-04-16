@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function AdminDashboard() {
+function UserOrder() {
   const URL = "http://localhost:3000/api/user/allOrder";
 
   const [order, setOrder] = useState([]);
@@ -36,8 +36,8 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <div className="container-fluid d-flex login-bg-container">
-        <div className="container d-flex mt-5 justify-content-center align-self-start">
+      <div className="">
+        <div className="container-fluid mt-5 d-flex justify-content-center align-self-start">
           <div
             className="card p-4 shadow-lg"
             style={{ width: "700px", background: "#eae9e7" }}
@@ -57,12 +57,20 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {order.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.Name}</td>
-                      <td>{item.Item}</td>
+                  {order.length > 0 ? (
+                    order.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.Name}</td>
+                        <td>{item.Item}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="2" className="text-center">
+                        No Data Available
+                      </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
@@ -101,3 +109,5 @@ export default function AdminDashboard() {
     </>
   );
 }
+
+export default UserOrder;
