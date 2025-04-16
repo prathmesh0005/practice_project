@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { dbConection } from '../config/db.js';
+import { dbConnection } from '../config/db.js';
 
 
 export const  verifyJWT = (req, res, next) =>{
@@ -15,7 +15,7 @@ export const  verifyJWT = (req, res, next) =>{
 
     const q = "SELECT * FROM users WHERE id = ?"
 
-    dbConection.query(q,[decodedToken.id], (err,data)=>{
+    dbConnection.query(q,[decodedToken.id], (err,data)=>{
         if(err) return res.status(500).json({error:err.message});
 
         if (data.length === 0) {

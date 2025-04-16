@@ -1,4 +1,4 @@
-import { dbConection } from "../config/db.js";
+import { dbConnection } from "../config/db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -37,7 +37,7 @@ export const refreshAccessToken = (req, res) => {
 
   const q = "SELECT * FROM users WHERE refresh_token = ?";
 
-  dbConection.query(q, [refresh_token], (err, data) => {
+  dbConnection.query(q, [refresh_token], (err, data) => {
     if (err) return res.status(500).json({ error: err.message });
 
     if (data.length === 0) {
@@ -62,12 +62,12 @@ export const refreshAccessToken = (req, res) => {
 };
 
 export const getAllUser = async (req, res) => {
-  const q = "SELECT * FROM users";
-  dbConection.query(q, (error, data) => {
+  const q = `SELECT id, first_name, last_name FROM users WHERE role = "user" ORDER BY first_name;`
+  dbConnection.query(q, (error, data) => {
     if (error) {
       return res.json(error);
     } else {
-      return res.json(data);
+      return res.json({ users: data });
     }
   });
 };
@@ -85,7 +85,7 @@ export const register = async (req, res) => {
     const q =
       "INSERT INTO users (first_name,last_name,email,password) VALUES (?,?,?,?)";
 
-    dbConection.query(
+    dbConnection.query(
       q,
       [first_name, last_name, email, hashPassword],
       (err, data) => {
@@ -119,7 +119,7 @@ export const userlogin = async (req, res) => {
     }
 
     const selectQuery = "SELECT * FROM users WHERE email = ?";
-    dbConection.query(selectQuery, [email], async (err, data) => {
+    dbConnection.query(selectQuery, [email], async (err, data) => {
       if (err) return res.status(500).json({ error: err.message });
 
       if (data.length === 0)
@@ -130,7 +130,7 @@ export const userlogin = async (req, res) => {
       const passwordCheck = await bcrypt.compare(password, user.password);
 
       if (!passwordCheck) {
-        return res.status(400).json({ message: "Invalid email or password" });
+        return res.status(400).json({ message: "Invalid password" });
       }
 
       const access_token = generateAccessToken(user);
@@ -138,14 +138,15 @@ export const userlogin = async (req, res) => {
 
       const updateQuery = "UPDATE users SET refresh_token = ? WHERE id = ?";
 
-      dbConection.query(updateQuery, [refresh_token, user.id], (updateErr) => {
+      dbConnection.query(updateQuery, [refresh_token, user.id], (updateErr) => {
         if (updateErr)
           return res.status(500).json({ error: updateErr.message });
 
         res.cookie("refresh_token", refresh_token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production", // Only secure in production
-          sameSite: "strict",
+          sameSite: "none",
+          path: "/",
         });
 
         res.status(200).json({
@@ -171,7 +172,7 @@ export const logOut = (req, res) => {
 
     const q = `UPDATE users SET refresh_token = NULL WHERE id = ?`;
 
-    dbConection.query(q, [id], (updateErr) => {
+    dbConnection.query(q, [id], (updateErr) => {
       if (updateErr) return res.status(500).json({ error: err.message });
 
       return res
@@ -179,6 +180,8 @@ export const logOut = (req, res) => {
         .clearCookie("refresh_token", {
           httpOnly: true,
           secure: true,
+          sameSite: "None", // Required if frontend & backend are on different domains
+          path: "/",
         })
         .json({ message: "User log out" });
     });
@@ -199,7 +202,7 @@ export const userOrder = async (req, res) => {
 
     const q = "INSERT INTO orders (user_id,items_id) VALUE (?,?)";
 
-    dbConection.query(q, [user_id, items_id], async (err, data) => {
+    dbConnection.query(q, [user_id, items_id], async (err, data) => {
       if (err)
         return res.status(400).json({ message: "Something wents wrongs." });
 
@@ -233,7 +236,7 @@ export const fetchOrder = (_, res) => {
                 INNER JOIN users AS u ON  o.user_id = u.id 
                 WHERE DATE(createdAt) = CURDATE()`;
 
-    dbConection.query(q, (err, data) => {
+    dbConnection.query(q, (err, data) => {
       if (err) {
         return res.status(400).json({ message: err.message });
       } else {
@@ -252,7 +255,7 @@ export const getUserOrderName = async (req, res) => {
                    INNER JOIN orders as o on i.id = o.items_id
                    WHERE o.id = ?;`;
 
-    dbConection.query(q, [req.query.id], (err, data) => {
+    dbConnection.query(q, [req.query.id], (err, data) => {
       if (err) return res.status(400).json({ message: err.message });
 
       res.status(200).json({ orderName: data });
@@ -272,7 +275,7 @@ export const updateOrder = (req, res) => {
 
     const q = `UPDATE orders SET items_id = ? WHERE id = ?`;
 
-    dbConection.query(q, [itemId, id], (err, data) => {
+    dbConnection.query(q, [itemId, id], (err, data) => {
       if (err) {
         return res.status(500).json({ message: err.message });
       }
@@ -307,7 +310,7 @@ export const getUserPrivousOrder = async (req, res) => {
                 INNER JOIN users AS u ON o.user_id = u.id
                 WHERE u.id = ? and date(createdAt) = CURDATE()`;
 
-    dbConection.query(q, [userId], (err, data) => {
+    dbConnection.query(q, [userId], (err, data) => {
       if (err) {
         return res.status(400).json({ message: err.message });
       } else {
@@ -321,16 +324,37 @@ export const getUserPrivousOrder = async (req, res) => {
 
 export const deleteOrder = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
 
     const q = `DELETE FROM orders WHERE id = ?`;
 
-    dbConection.query(q,[id], (err, data)=>{
-      if(err) return res.status(400).json({ message: err.message });
-     
-      return res.status(200).json({message:"Order Deleted successfully."})
+    dbConnection.query(q, [id], (err, data) => {
+      if (err) return res.status(400).json({ message: err.message });
+
+      return res.status(200).json({ message: "Order Deleted successfully." });
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server error" });
+  }
+};
+
+export const fetchUserOrderData = async (req, res) => {
+  try {
+    const { user_id, startDate, endDate } = req.body;
+
+    const q = `SELECT CONCAT(u.first_name," ",u.last_name) AS Name, i.name, i.price, COUNT(*) AS item_count, (COUNT(*) * i.price) AS total_price
+               FROM users AS u
+               INNER JOIN orders AS o on u.id = o.user_id
+               INNER JOIN items AS i on o.items_id = i.id
+               WHERE createdAt BETWEEN ? AND ?
+               AND o.user_id = ?
+               GROUP BY u.id, i.name, i.price;`;
+
+    dbConnection.query(q,[startDate,endDate, user_id], (err, data)=>{
+      if(err)  return res.status(400).json({ message: err.message });
+      
+      return res.status(200).json({orders:data})
     })
-    
   } catch (error) {
     res.status(500).json({ message: "Internal Server error" });
   }

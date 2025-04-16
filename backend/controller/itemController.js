@@ -1,8 +1,8 @@
-import { dbConection } from "../config/db.js";
+import { dbConnection } from "../config/db.js";
 
 export const allItems = async(req,res) =>{
     const q = "SELECT * FROM items";
-    dbConection.query(q,(err,data)=>{
+    dbConnection.query(q,(err,data)=>{
         if(err){
             console.log(err);
             return res.status(400).json(err);
