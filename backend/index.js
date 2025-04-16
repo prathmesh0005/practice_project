@@ -18,18 +18,16 @@ app.use(
   })
 );
 
-
-
 // dbConnection.connect(function (err) {
 //   if (err) throw err;
 //   console.log(" Database Connected!");
 // });
 
-dbConnection.query('SELECT 1', (err, results) => {
+dbConnection.query("SELECT 1", (err, results) => {
   if (err) {
-      console.error('Database connection failed:', err);
+    console.error("Database connection failed:", err);
   } else {
-      console.log('Database Connected!');
+    console.log("Database Connected!");
   }
 });
 
@@ -42,5 +40,7 @@ app.listen(port, () => {
 // })
 
 import userRouter from "./routes/userRoutes.js";
+import itemRouter from "./routes/itemRoutes.js";
 
 app.use("/api/user", userRouter);
+app.use("/api/item", itemRouter);
