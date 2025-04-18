@@ -71,3 +71,24 @@ export const deleteItem = async (req, res) => {
     res.status(200).json({ message: "Internal Server Error." });
   }
 };
+
+
+export const itemFetchById = async(req, res)=> {
+  try {
+    const {id} = req.params;
+
+    if(!id){
+      return res.status(400).json({message:"Item id is not found"})
+    }
+    
+    const q = `SELECT * FROM items WHERE id = ?`
+    dbConnection.query(q,[id], (err, data)=>{
+      if(err) return res.status(400).json({message:"Something wents wrong", error:err.message});
+      return res.status(200).json( data)
+    })
+    
+  } catch (error) {
+    console.log(error);
+    res.status(200).json({ message: "Internal Server Error." });
+  }
+}
