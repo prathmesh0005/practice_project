@@ -14,11 +14,11 @@ function ItemServices() {
         },
         {
             title:"Update Item",
-            slug:""
+            slug:"/admin/item-service/update-item"
         },
         {
              title:"Delete Item",
-            slug:""
+            slug:"/admin/item-service/delete-item"
         }
     ]
 

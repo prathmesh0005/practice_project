@@ -26,7 +26,7 @@ function Bill() {
       setUsers(response.data.users);
     }
     fetchUsers();
-  });
+  },[]);
 
   const formData = {
     user_id: userId,
@@ -99,7 +99,6 @@ function Bill() {
               <div>
                 <label>User:&nbsp; </label>
                 <select
-                  value={userId || ""}
                   onChange={(e) => setUserId(e.target.value)}
                 >
                   <option>Select User</option>

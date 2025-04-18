@@ -1,18 +1,8 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useOutletContext } from "react-router-dom"
 
 
 function AllItem() {
-
-  const [items, setItem] = useState([])
-  const url = `http://localhost:3000/api/item/all-item`
-  useEffect(()=>{
-    async function fetchItem() {
-      const response = await axios.get(url)
-      setItem(response.data.items)
-    }
-    fetchItem()
-  },[])
+  const {items} = useOutletContext();
 
   return (
     <div className="container mt-3 p-2 d-flex flex-column jystify-content-center align-items-center">
