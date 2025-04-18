@@ -8,6 +8,9 @@ import Dashboard from "./components/Dashboard";
 import Bill from "./components/admin/Bill";
 import AdminLayouts from "./layouts/AdminLayouts";
 import UserOrder from "./components/UserOrder";
+import ItemLayout from "./layouts/ItemLayout";
+import AllItem from "./components/admin/AllItem";
+import AddItem from "./components/admin/AddItem";
 
 function App() {
   return (
@@ -22,6 +25,10 @@ function App() {
             <Route path="/admin" element={<AdminLayouts />}>
               <Route path="" element={<UserOrder />} />
               <Route path="/admin/bill" element={<Bill />} />
+              <Route path="/admin/item-service" element={<ItemLayout/>}>
+                <Route path="" element={<AllItem/>}/>
+                <Route path="/admin/item-service/add-item" element={<AddItem/>}/>
+              </Route>
             </Route>
           </Route>
         </Routes>

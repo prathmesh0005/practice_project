@@ -1,0 +1,12 @@
+.custom-hover {
+    transition: all 0.3s ease;
+    color: black; 
+    text-decoration: none;
+    padding: 10px;
+  }
+  
+  .custom-hover:hover { 
+    background-color: #e9ecef; 
+    border-radius: 5px;
+  }
+  

@@ -95,7 +95,7 @@ function Bill() {
         >
           <h4>Generate Bill</h4>
           <div className="form">
-            <div className="d-flex flex-row justify-content-between align-items-center gap-4">
+            <div className="d-flex flex-row justify-content-between mt-3  gap-4">
               <div>
                 <label>User:&nbsp; </label>
                 <select
@@ -103,11 +103,13 @@ function Bill() {
                   onChange={(e) => setUserId(e.target.value)}
                 >
                   <option>Select User</option>
-                  { users && users.map((user)=>(
-                    <option value={user.id} key={user.id}>{`${user.first_name} ${user.last_name}`}</option>
-                  ))
-
-                  }
+                  {users &&
+                    users.map((user) => (
+                      <option
+                        value={user.id}
+                        key={user.id}
+                      >{`${user.first_name} ${user.last_name}`}</option>
+                    ))}
                 </select>
               </div>
 
@@ -158,7 +160,7 @@ function Bill() {
                       <p>Date: {`${dd}/${mm}/${yy}`}</p>
                     </div>
                     <div>
-                      <table className="table table-striped table-bordered">
+                      <table className="table table-striped border">
                         <thead>
                           <tr>
                             <th>Item</th>
