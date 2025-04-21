@@ -1,12 +1,13 @@
 import axios from "axios";
 import {  useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 function AddItem() {
     const [name, setname] = useState("");
     const [price, setPrice] = useState("")
     const [message, setMessage] = useState("")
     const navigate = useNavigate()
+    const {refreshItem} = useOutletContext()
 
     const url = `http://localhost:3000/api/item/add-item`
 
@@ -16,6 +17,7 @@ function AddItem() {
         try {
             const response = await axios.post(url,{name,price});
             setMessage(response.data.message)
+            await refreshItem()
            
         } catch (error) {
             console.log(error)
