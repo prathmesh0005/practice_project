@@ -24,7 +24,7 @@ function ItemServices() {
 
   return (
     <>
-    <div className="container-fluid d-flex gap-5 p-2 mt-2">
+    <div className="container-fluid d-flex gap-5 p-2 mt-3">
           {
             cardItem.map((item,index)=>(
                 <div key={index} className="card  p-2 shadow text-center custom-hover h6" >

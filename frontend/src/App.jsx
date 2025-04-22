@@ -13,6 +13,8 @@ import AllItem from "./components/admin/AllItem";
 import AddItem from "./components/admin/AddItem";
 import UpdateItem from "./components/admin/updateItem";
 import DeleteService from "./components/admin/DeleteService";
+import UserLayouts from "./layouts/UserLayouts";
+import GetAdminAccess from "./components/admin/GetAdminAccess";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
             <Route path="/admin" element={<AdminLayouts />}>
               <Route path="" element={<UserOrder />} />
               <Route path="/admin/bill" element={<Bill />} />
+              <Route path="/admin/manage-user" element={<UserLayouts/>}>
+                <Route path="" element={<GetAdminAccess/>}/>
+              </Route>
               <Route path="/admin/item-service" element={<ItemLayout/>}>
                 <Route path="" element={<AllItem/>}/>
                 <Route path="/admin/item-service/add-item" element={<AddItem/>}/>

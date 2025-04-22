@@ -16,11 +16,11 @@ function DeleteService() {
   }
 
   return (
-    <div className="container mt-4 d-flex justify-content-center align-items-center">
-      <div className="card p-2 shadow">
+    <div className="container mt-5 d-flex justify-content-center align-items-center">
+      <div className="card p-2 shadow mt-4">
         {items.map((item) => (
           <div
-            className="card d-flex flex-row align-items-center gap-5 p-2 m-2"
+            className="card d-flex flex-row align-items-center gap-5 p-2 m-2 shadow"
             key={item.id}
           >
             <label className="ps-2 h6 ">{item.name}</label>

@@ -11,7 +11,7 @@ function AdminNav() {
         <Link className="nav-link custom-hover p-2" to="/admin/bill">
           Generate Bill
         </Link>
-        <Link className="nav-link custom-hover p-2" to="">
+        <Link className="nav-link custom-hover p-2" to="/admin/manage-user">
           Manage User
         </Link>
         <Link className="nav-link custom-hover p-2" to="/admin/item-service">

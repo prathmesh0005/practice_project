@@ -5,7 +5,7 @@ function AllItem() {
   const {items} = useOutletContext();
 
   return (
-    <div className="container mt-3 p-2 d-flex flex-column jystify-content-center align-items-center">
+    <div className="container mt-3 p-2 d-flex flex-column justify-content-center align-items-center">
       <h5 className="p-4">All Items List</h5>
       <table className="table table-striped border"> 
          <thead className="table-dark">
