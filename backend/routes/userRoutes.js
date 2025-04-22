@@ -10,7 +10,11 @@ import {
   logOut,
   getUserPrivousOrder,
   deleteOrder,
-  fetchUserOrderData
+  fetchUserOrderData,
+  userData ,
+  giveAdminAccess,
+  getUserById,
+  removeAdminAccess
 } from "../controller/userController.js";
 import { allItems } from "../controller/itemController.js";
 import { verifyJWT } from "../middleware/auth.js";
@@ -30,5 +34,9 @@ router.route("/logout").put(verifyJWT, logOut);
 router.post("/user-previous-order", getUserPrivousOrder);
 router.delete("/delete-order/:id", deleteOrder);
 router.post("/user-bill", fetchUserOrderData)
+router.get("/user-data",userData )
+router.put("/user-admin-access/:id",giveAdminAccess)
+router.get("/get-user/:id",getUserById)
+router.put("/remove-admin-access/:id",removeAdminAccess)
 
 export default router;

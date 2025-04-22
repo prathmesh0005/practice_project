@@ -62,13 +62,21 @@ export const refreshAccessToken = (req, res) => {
 };
 
 export const getAllUser = async (req, res) => {
-  const q = `SELECT id, first_name, last_name FROM users WHERE role = "user" ORDER BY first_name;`
+  const q = `SELECT id, first_name, last_name FROM users WHERE role = "user" ORDER BY first_name;`;
   dbConnection.query(q, (error, data) => {
     if (error) {
       return res.json(error);
     } else {
       return res.json({ users: data });
     }
+  });
+};
+
+export const userData = async (req, res) => {
+  const q = `SELECT id, first_name, last_name, role FROM users ORDER BY first_name;`;
+  dbConnection.query(q, (err, data) => {
+    if (err) return res.status(400).json({ message: err.message });
+    return res.json({ users: data });
   });
 };
 
@@ -350,12 +358,74 @@ export const fetchUserOrderData = async (req, res) => {
                AND o.user_id = ?
                GROUP BY u.id, i.name, i.price;`;
 
-    dbConnection.query(q,[startDate,endDate, user_id], (err, data)=>{
-      if(err)  return res.status(400).json({ message: err.message });
-      
-      return res.status(200).json({orders:data})
-    })
+    dbConnection.query(q, [startDate, endDate, user_id], (err, data) => {
+      if (err) return res.status(400).json({ message: err.message });
+
+      return res.status(200).json({ orders: data });
+    });
   } catch (error) {
     res.status(500).json({ message: "Internal Server error" });
+  }
+};
+
+export const giveAdminAccess = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "User id not found" });
+    }
+    const q = `UPDATE users SET role = "admin" WHERE id = ?;`;
+
+    dbConnection.query(q, [id], (err, data) => {
+      if (err) return res.status(400).json({ message: err.message });
+
+      if (data.affectedRows === 1) {
+        return res.status(200).json({ message: "User got admin access." });
+      }
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server error", error: error.message });
+  }
+};
+
+export const removeAdminAccess = async (req, res) =>{
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "User id not found" });
+    }
+    const q = `UPDATE users SET role = "user" WHERE id = ?;`;
+
+    dbConnection.query(q, [id], (err, data) => {
+      if (err) return res.status(400).json({ message: err.message });
+
+      if (data.affectedRows === 1) {
+        return res.status(200).json({ message: "Admin access remove successfully." });
+      }
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server error", error: error.message });
+  }
+}
+
+export const getUserById = async (req, res) => {
+  try {
+    const {id} = req.params;
+    if(!id){
+      return res.status(400).json({message:"iser is is not found"})
+    }
+    const q = `SELECT first_name, last_name, role from users WHERE id = ?`
+
+    dbConnection.query(q,[id], (err,data)=>{
+      if(err) return res.status(400).json({message:err.message})
+      
+      return res.status(200).json({user: data})
+    })
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server error", error: error.message });
   }
 };
