@@ -8,7 +8,7 @@ function UserServices() {
     },
     {
       title: "Delete User Order",
-      slug: "",
+      slug: "/admin/manage-user/delete-order",
     },
   ];
 

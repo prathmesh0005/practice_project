@@ -37,7 +37,7 @@ function AddItem() {
            <input type="number" className="form-control" value={price} placeholder="Enter product price" onChange={(e)=> setPrice(e.target.value)} />
            </div>
            <div className="d-flex justify-content-center align-items-center">
-            <button type="submit" className="btn btn-primary" >Submit</button>
+            <button type="submit" className="btn btn-dark" >Submit</button>
            </div>
         </form>
         {

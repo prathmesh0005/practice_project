@@ -113,6 +113,7 @@ function Bill() {
               </div>
 
               <div>
+              <div>
                 <p>Select Starting date: </p>
                 <DatePicker
                   selected={startDate}
@@ -137,11 +138,13 @@ function Bill() {
                   placeholderText="Click to select a date"
                 />
               </div>
+              </div>
+
             </div>
 
             <div className="d-flex justify-content-center mt-3">
-              <button onClick={handleSubmit} className="btn btn-primary">
-                Generate bill
+              <button onClick={handleSubmit} className="btn btn-dark">
+                Generate Bill
               </button>
             </div>
 
@@ -194,7 +197,7 @@ function Bill() {
                     </div>
                   </div>
                 </div>
-                <button onClick={generatePDF} className="btn btn-primary mt-3">
+                <button onClick={generatePDF} className="btn btn-dark mt-3">
                   Generate PDF
                 </button>
               </div>

@@ -15,6 +15,7 @@ import UpdateItem from "./components/admin/updateItem";
 import DeleteService from "./components/admin/DeleteService";
 import UserLayouts from "./layouts/UserLayouts";
 import GetAdminAccess from "./components/admin/GetAdminAccess";
+import DeleteOrder from "./components/admin/DeleteOrder";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="/admin/bill" element={<Bill />} />
               <Route path="/admin/manage-user" element={<UserLayouts/>}>
                 <Route path="" element={<GetAdminAccess/>}/>
+                <Route path="/admin/manage-user/delete-order" element={<DeleteOrder/>}/>
               </Route>
               <Route path="/admin/item-service" element={<ItemLayout/>}>
                 <Route path="" element={<AllItem/>}/>

@@ -80,7 +80,7 @@ function UpdateItem() {
                 />
               </div>
               <div className="d-flex justify-content-center align-items-center">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-dark">
                   Submit
                 </button>
               </div>
