@@ -11,10 +11,13 @@ import {
   getUserPrivousOrder,
   deleteOrder,
   fetchUserOrderData,
-  userData ,
+  userData,
   giveAdminAccess,
   getUserById,
-  removeAdminAccess
+  removeAdminAccess,
+  deleteAllUserOrder,
+  deleteParticularUserOrder,
+  countUserOrder,
 } from "../controller/userController.js";
 import { allItems } from "../controller/itemController.js";
 import { verifyJWT } from "../middleware/auth.js";
@@ -33,10 +36,14 @@ router.route("/update-order").put(verifyJWT, updateOrder);
 router.route("/logout").put(verifyJWT, logOut);
 router.post("/user-previous-order", getUserPrivousOrder);
 router.delete("/delete-order/:id", deleteOrder);
-router.post("/user-bill", fetchUserOrderData)
-router.get("/user-data",userData )
-router.put("/user-admin-access/:id",giveAdminAccess)
-router.get("/get-user/:id",getUserById)
-router.put("/remove-admin-access/:id",removeAdminAccess)
+router.post("/user-bill", fetchUserOrderData);
+router.get("/user-data", userData);
+router.put("/user-admin-access/:id", giveAdminAccess);
+router.get("/get-user/:id", getUserById);
+router.put("/remove-admin-access/:id", removeAdminAccess);
+
+router.delete("/delete-user-orders/:id", deleteAllUserOrder);
+router.delete("/delete-particular-user-order", deleteParticularUserOrder); // based on selected date
+router.get("/order-count/:id", countUserOrder);
 
 export default router;

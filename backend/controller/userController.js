@@ -242,7 +242,8 @@ export const fetchOrder = (_, res) => {
                 FROM items AS i 
                 INNER JOIN orders AS o ON i.id = o.items_id 
                 INNER JOIN users AS u ON  o.user_id = u.id 
-                WHERE DATE(createdAt) = CURDATE()`;
+                WHERE DATE(createdAt) = CURDATE() 
+                Order By Name`;
 
     dbConnection.query(q, (err, data) => {
       if (err) {
@@ -380,7 +381,9 @@ export const giveAdminAccess = async (req, res) => {
       if (err) return res.status(400).json({ message: err.message });
 
       if (data.affectedRows === 1) {
-        return res.status(200).json({ message: "User got admin access." });
+        return res
+          .status(200)
+          .json({ message: "Admin access granted to user." });
       }
     });
   } catch (error) {
@@ -390,7 +393,7 @@ export const giveAdminAccess = async (req, res) => {
   }
 };
 
-export const removeAdminAccess = async (req, res) =>{
+export const removeAdminAccess = async (req, res) => {
   try {
     const { id } = req.params;
     if (!id) {
@@ -402,7 +405,9 @@ export const removeAdminAccess = async (req, res) =>{
       if (err) return res.status(400).json({ message: err.message });
 
       if (data.affectedRows === 1) {
-        return res.status(200).json({ message: "Admin access remove successfully." });
+        return res
+          .status(200)
+          .json({ message: "Admin access remove successfully." });
       }
     });
   } catch (error) {
@@ -410,22 +415,89 @@ export const removeAdminAccess = async (req, res) =>{
       .status(500)
       .json({ message: "Internal Server error", error: error.message });
   }
-}
+};
 
 export const getUserById = async (req, res) => {
   try {
-    const {id} = req.params;
-    if(!id){
-      return res.status(400).json({message:"iser is is not found"})
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "iser is is not found" });
     }
-    const q = `SELECT first_name, last_name, role from users WHERE id = ?`
+    const q = `SELECT first_name, last_name, role from users WHERE id = ?`;
 
-    dbConnection.query(q,[id], (err,data)=>{
-      if(err) return res.status(400).json({message:err.message})
-      
-      return res.status(200).json({user: data})
-    })
+    dbConnection.query(q, [id], (err, data) => {
+      if (err) return res.status(400).json({ message: err.message });
+
+      return res.status(200).json({ user: data });
+    });
   } catch (error) {
-    res.status(500).json({ message: "Internal Server error", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Internal Server error", error: error.message });
+  }
+};
+
+export const deleteAllUserOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "User is is required." });
+    }
+    const q = `DELETE FROM orders WHERE user_id = ?`;
+
+    dbConnection.query(q, [id], (err, data) => {
+      if (err) return res.status(400).json({ message: err.message });
+      return res.status(200).json({ message: "Order deleted successfully." });
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server error", error: error.message });
+  }
+};
+
+export const deleteParticularUserOrder = async (req, res) => {
+  try {
+    const { id, startDate, endDate } = req.body;
+    if (!id || !startDate || !endDate) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    const q = `DELETE from orders
+             Where id = ? 
+             AND createdAt >= ?
+             AND  createdAt <= ?`;
+
+    dbConnection.query(q, [id, startDate, endDate], (err, data) => {
+      if (err) return res.status(400).json({ message: "err.message" });
+    });
+    return res
+      .status(200)
+      .json({ message: "User order deleted successfully." });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server error", error: error.message });
+    console.log(error);
+  }
+};
+
+export const countUserOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "User id is required" });
+    }
+    const q = `SELECT count(*) as total_count FROM orders WHERE user_id = ? GROUP BY user_id;`;
+
+    dbConnection.query(q, [id], (err, data) => {
+      if (err) return res.status(400).json({ message: err.message });
+
+      return res.status(200).json(data);
+    });
+  } catch (error) {
+    res
+    .status(500)
+    .json({ message: "Internal Server error", error: error.message });
+    console.log(error);
   }
 };
