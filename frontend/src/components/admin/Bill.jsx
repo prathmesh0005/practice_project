@@ -36,6 +36,14 @@ function Bill() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (startDate === null) {
+      alert("Please select a starting date")
+      return;
+    } 
+    if (endDate === null) {
+      alert("Please select a Ending date")
+      return;
+    }
     try {
       const res = await axios.post(bill_url, formData);
       //console.log(res.data)
@@ -73,13 +81,6 @@ function Bill() {
   const mm = d.getMonth() + 1;
   const dd = d.getDate();
 
-  useEffect(() => {
-    // console.log(startDate);
-    // console.log(endDate);
-    // console.log(userId);
-    //console.log(billData);
-  }, [startDate, endDate, userId, billData]);
-
   const userName = billData && billData[0] ? billData[0].Name : "";
   const total =
     billData && billData[0]
@@ -112,7 +113,7 @@ function Bill() {
                 </select>
               </div>
 
-              <div>
+              <div className="d-flex gap-4">
               <div>
                 <p>Select Starting date: </p>
                 <DatePicker
