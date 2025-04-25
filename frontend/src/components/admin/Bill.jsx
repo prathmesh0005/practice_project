@@ -44,6 +44,10 @@ function Bill() {
       alert("Please select a Ending date")
       return;
     }
+    if (!userId) {
+      alert("Please select a User")
+      return;
+    }
     try {
       const res = await axios.post(bill_url, formData);
       //console.log(res.data)

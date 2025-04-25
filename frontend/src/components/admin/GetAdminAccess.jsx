@@ -43,8 +43,9 @@ function GetAdminAccess() {
 
   return (
     <div className="container mt-3 p-2 d-flex flex-column justify-content-center align-items-center">
-      <div>
-        <label>User:&nbsp; </label>
+      <div className="d-flex flex-column justify-content-center align-items-center">
+        <p className="h6 p-2 ">Change user access control</p>
+        {/* <label>User:&nbsp; </label> */}
         <select onChange={(e) => setUserID(e.target.value)}>
           <option>Select User</option>
           {users &&
