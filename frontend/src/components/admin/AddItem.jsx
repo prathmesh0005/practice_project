@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 function AddItem() {
   const [name, setname] = useState("");
@@ -14,11 +18,11 @@ function AddItem() {
   async function handleClick(e) {
     e.preventDefault();
     if (name === "") {
-      alert("Please enter product name");
+      toast.warning("Enter product name");
       return;
     }
     if (price === "") {
-      alert("Please enter price");
+      toast.warning("Please enter price");
       return;
     }
 
@@ -88,6 +92,17 @@ function AddItem() {
           </div>
         )}
       </div>
+      <ToastContainer 
+        position="top-center" 
+        autoClose={3000}     
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

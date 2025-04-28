@@ -4,6 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { toast } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
 
 function Bill() {
   const url = "http://localhost:3000/api/user/allUser";
@@ -26,7 +28,7 @@ function Bill() {
       setUsers(response.data.users);
     }
     fetchUsers();
-  },[]);
+  }, []);
 
   const formData = {
     user_id: userId,
@@ -37,15 +39,15 @@ function Bill() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (startDate === null) {
-      alert("Please select a starting date")
+      toast.warning("Please select the starting date");
       return;
-    } 
+    }
     if (endDate === null) {
-      alert("Please select a Ending date")
+      toast.warning("Please select the Ending date");
       return;
     }
     if (!userId) {
-      alert("Please select a User")
+      toast.warning("Please select the User");
       return;
     }
     try {
@@ -103,9 +105,7 @@ function Bill() {
             <div className="d-flex flex-row justify-content-between mt-3  gap-4">
               <div>
                 <label>User:&nbsp; </label>
-                <select
-                  onChange={(e) => setUserId(e.target.value)}
-                >
+                <select onChange={(e) => setUserId(e.target.value)}>
                   <option>Select User</option>
                   {users &&
                     users.map((user) => (
@@ -118,33 +118,32 @@ function Bill() {
               </div>
 
               <div className="d-flex gap-4">
-              <div>
-                <p>Select Starting date: </p>
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => {
-                    const formattedDate = date.toISOString().split("T")[0];
-                    setStartDate(formattedDate);
-                  }}
-                  dateFormat="yyyy/MM/dd"
-                  placeholderText="Click to select a date"
-                />
-              </div>
+                <div>
+                  <p>Select Starting date: </p>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => {
+                      const formattedDate = date.toISOString().split("T")[0];
+                      setStartDate(formattedDate);
+                    }}
+                    dateFormat="yyyy/MM/dd"
+                    placeholderText="Click to select a date"
+                  />
+                </div>
 
-              <div>
-                <p>Select End date:</p>
-                <DatePicker
-                  selected={endDate}
-                  onChange={(date) => {
-                    const formattedDate = date.toISOString().split("T")[0];
-                    setEndDate(formattedDate);
-                  }}
-                  dateFormat="yyyy/MM/dd"
-                  placeholderText="Click to select a date"
-                />
+                <div>
+                  <p>Select End date:</p>
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => {
+                      const formattedDate = date.toISOString().split("T")[0];
+                      setEndDate(formattedDate);
+                    }}
+                    dateFormat="yyyy/MM/dd"
+                    placeholderText="Click to select a date"
+                  />
+                </div>
               </div>
-              </div>
-
             </div>
 
             <div className="d-flex justify-content-center mt-3">
@@ -210,6 +209,17 @@ function Bill() {
           </div>
         </div>
       </div>
+      <ToastContainer 
+        position="top-center" 
+        autoClose={3000}     
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }
