@@ -3,7 +3,8 @@ import "../../css/admin.style.css"
 
 function AdminNav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light px-3 mt-2 text-black">
+    <div className="container-fluid d-flex justify-content-center ">
+      <nav className="navbar navbar-expand-lg navbar-light px-3 mt-2 text-black">
       <div className="d-flex gap-5 fw-bold">
         <Link className="nav-link custom-hover p-2" to="/admin">
           Todays Order
@@ -19,6 +20,7 @@ function AdminNav() {
         </Link>
       </div>
     </nav>
+    </div>
   );
 }
 

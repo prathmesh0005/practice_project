@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { use, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contaxt/AuthContext";
 import axios from "axios";
@@ -14,6 +14,7 @@ export default function Header() {
     e.preventDefault();
     try {
       if (!user) return;
+      console.log(user)
       await axios.put(
         URL,
         { id: user.id },
@@ -36,7 +37,7 @@ export default function Header() {
   return (
     <>
       {!isLoggedIn ? (
-        <header className="shadow">
+        <header className=" shadow">
           <nav
             className="navbar navbar-expand-lg navbar-light px-3"
             style={{ background: "#cbc9c6" }}

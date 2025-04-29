@@ -12,6 +12,8 @@ function DeleteOrder() {
   const [endDate, setEndDate] = useState(null);
   const [message, setMessage] = useState();
   const [orderCount, setOrderCount] = useState();
+  const userList = users.filter((item)=> item.role === "user")
+
 
   const getIserUrl = `http://localhost:3000/api/user/get-user/${userId}`;
   const deleteAllUserOrderUrl = `http://localhost:3000/api/user//delete-user-orders/${userId}`;
@@ -87,8 +89,8 @@ function DeleteOrder() {
             onChange={(e) => setUserID(e.target.value)}
           >
             <option className="">Select User</option>
-            {users &&
-              users.map((user) => (
+            {userList &&
+              userList.map((user) => (
                 <option
                   value={user.id}
                   key={user.id}
