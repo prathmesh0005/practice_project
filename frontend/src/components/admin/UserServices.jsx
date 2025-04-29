@@ -14,7 +14,7 @@ function UserServices() {
 
   return (
     <>
-      <div className="container-fluid d-flex gap-5 p-2 mt-3">
+      <div className="container-fluid d-flex justify-content-center gap-5 p-2 mt-3">
         {cardItem.map((item, index) => (
           <div
             key={index}

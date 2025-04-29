@@ -17,7 +17,7 @@ function UserLayouts() {
   }, []);
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center">
+    <div className="container-fluid d-flex flex-column justify-content-center align-items-center">
       <UserServices />
       <Outlet context={{ users, refreshUser: fetchUser }} />
     </div>

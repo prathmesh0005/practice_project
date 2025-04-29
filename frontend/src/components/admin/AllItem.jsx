@@ -7,7 +7,7 @@ function AllItem() {
   return (
     <div className="container mt-3 p-2 d-flex flex-column justify-content-center align-items-center">
       <h5 className="p-4">All Items List</h5>
-      <table className="table table-striped border"> 
+      <table className="table table-striped border" style={{ width: "600px", minWidth: "400px" }}> 
          <thead className="table-dark">
            <tr>
             <td>Name</td>

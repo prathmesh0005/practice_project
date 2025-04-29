@@ -17,7 +17,7 @@ function ItemLayout() {
   }, []);
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center">
+    <div className="container-fluid d-flex flex-column justify-content-center align-items-center">
       <ItemServices />
       <Outlet context={{items, refreshItem: fetchItem}} />
     </div>
