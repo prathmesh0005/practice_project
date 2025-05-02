@@ -1,7 +1,8 @@
-import { use, useContext } from "react";
+import {  useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contaxt/AuthContext";
 import axios from "axios";
+import "../App.css"
 
 const URL = `http://localhost:3000/api/user/logout`;
 
@@ -14,7 +15,6 @@ export default function Header() {
     e.preventDefault();
     try {
       if (!user) return;
-      console.log(user)
       await axios.put(
         URL,
         { id: user.id },
