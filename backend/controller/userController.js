@@ -501,3 +501,47 @@ export const countUserOrder = async (req, res) => {
     console.log(error);
   }
 };
+
+
+export const checkAuth = async (req, res) =>{
+  try {
+    const q = `SELECT id from users WHERE 1 = 0;`
+    dbConnection.query(q, (err, data)=>{
+      if(err) return res.status(401).json({message: err.message})
+      return res.status(200).json({message:"OK"})
+    })
+  } catch (error) {
+    res
+    .status(500)
+    .json({ message: "Internal Server error", error: error.message });
+    console.log(error);
+  }
+}
+
+export const changePassword = async (req, res)=>{
+  try {
+    const {email , password} = req.body;
+    if(!email || !password){
+      return res.status(400).json({message:"All fields are required"})
+    }
+    const hashPassword = await bcrypt.hash(password, 10);
+    
+    const q = `SELECT email FROM users WHERE email = ?`
+    dbConnection.query(q,[email], (err, data)=>{
+      if(err) return res.status(401).json({message: err.message})
+      if(data.length === 0) {
+        return res.status(401).json({message:"Email not found. Enter register email"})
+      }
+    })
+    const query = `UPDATE users SET password = ? WHERE email = ?`
+    dbConnection.query(query,[hashPassword,email],(err, data)=>{
+      if(err) return res.status(401).json({message:err.message})
+      if(data.affectedRows === 1){
+        return res.status(201).json({message:"Password change Successfully."})
+      }
+    })
+    
+  } catch (error) {
+    res.status(500).json({message:"Internal server error", error:error.message})
+  }
+}
