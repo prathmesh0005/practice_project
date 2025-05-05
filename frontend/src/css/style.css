@@ -1,6 +1,7 @@
 .login-bg-container {
     position: relative;
-    height: 100vh;
+    /* height: 100vh; */
+    height: calc(100vh - 56px);
     width: 100vw;
     display: flex;
     justify-content: center;

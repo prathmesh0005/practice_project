@@ -16,6 +16,7 @@ import DeleteService from "./components/admin/DeleteService";
 import UserLayouts from "./layouts/UserLayouts";
 import GetAdminAccess from "./components/admin/GetAdminAccess";
 import DeleteOrder from "./components/admin/DeleteOrder";
+import ChangePassword from "./components/ChangePassword";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="" element={<Home />}></Route>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/change-password" element={<ChangePassword/>}/>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<AdminLayouts />}>
               <Route path="" element={<UserOrder />} />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../css/style.css";
 
 const URL = "http://localhost:3000/api/user/register";
 
@@ -42,14 +43,17 @@ export default function Register() {
 
   return (
     <>
-      <div
-        className="d-flex justify-content-center align-item-center"
-        style={{ marginTop: "100px" }}
-      >
-        <div className="card p-4 shadow-lg " style={{ width: "350px" }}>
+      <div className="d-flex justify-content-center align-item-center login-bg-container">
+        <div
+          className="card p-4 shadow-lg "
+          style={{ width: "400px", background: "#eae9e7" }}
+        >
           <h5 className="text-center mb-4">Create your Account</h5>
           <div className="form">
-            <form action="">
+            <form
+              action=""
+              className="d-flex flex-column justify-content-center align-items-center"
+            >
               <div className="mb-3">
                 <input
                   type="text"
@@ -58,6 +62,7 @@ export default function Register() {
                   placeholder="First Name"
                   name="first_name"
                   value={data.first_name}
+                  style={{ width: "250px" }}
                   required
                 />
               </div>
@@ -69,6 +74,7 @@ export default function Register() {
                   placeholder="Last Name"
                   name="last_name"
                   value={data.last_name}
+                  style={{ width: "250px" }}
                   required
                 />
               </div>
@@ -80,6 +86,7 @@ export default function Register() {
                   placeholder="Email"
                   name="email"
                   value={data.email}
+                  style={{ width: "250px" }}
                   required
                 />
               </div>
@@ -91,10 +98,11 @@ export default function Register() {
                   placeholder="Password"
                   name="password"
                   value={data.password}
+                  style={{ width: "250px" }}
                   required
                 />
               </div>
-              <div className="d-grid">
+              <div className="d-flex justify-content-center">
                 <button
                   className="btn btn-primary"
                   onClick={handleClick}

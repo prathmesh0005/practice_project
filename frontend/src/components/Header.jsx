@@ -2,7 +2,6 @@ import {  useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contaxt/AuthContext";
 import axios from "axios";
-import "../App.css"
 
 const URL = `http://localhost:3000/api/user/logout`;
 
@@ -37,7 +36,7 @@ export default function Header() {
   return (
     <>
       {!isLoggedIn ? (
-        <header className=" shadow">
+        <header className="shadow">
           <nav
             className="navbar navbar-expand-lg navbar-light px-3"
             style={{ background: "#cbc9c6" }}

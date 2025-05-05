@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contaxt/AuthContext";
 import "../css/style.css";
+import { Link } from "react-router-dom";
 
 const URL = "http://localhost:3000/api/user/login";
 
@@ -40,7 +41,7 @@ export default function Login() {
       <div className="container-fluid d-flex login-bg-container">
         <div
           className="container d-flex justify-content-center align-self-start"
-          style={{ marginTop: 200 }}
+          style={{ marginTop: 200, background:"" }}
         >
           <div
             className="card p-4 shadow-lg border-dark shadow-lg"
@@ -84,6 +85,9 @@ export default function Login() {
                   </button>
                 </div>
               </form>
+              <div className="mt-2"> 
+                <Link to={"/change-password"} className="text-dark d-flex text-decoration-underline justify-content-center">Forgate password</Link>
+              </div>
             </div>
 
 

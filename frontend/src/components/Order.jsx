@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 // import UserOrder from "./UserOrder";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// import { AuthContext } from "../contaxt/AuthContext";
 
 const URL = "http://localhost:3000/api/user/order";
 const itemUrl = "http://localhost:3000/api/user/items";
@@ -14,6 +15,7 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
+  // const {protectedRoute} = useContext(AuthContext);
 
   // eslint-disable-next-line react/prop-types
   const orderId = userOrderInfo?.orderId;
@@ -39,11 +41,18 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
   const handleOrder = async (e) => {
     try {
       e.preventDefault();
+
+      // const accessToken = await protectedRoute(); // Wait for it to finish
+      // if (!accessToken) {
+      //   console.log("Authorization failed");
+      //   return;
+      // }
       await axios.post(URL, requestData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+      // console.log(res.data)
       refreshOrderData();
     } catch (error) {
       console.log(error.message);
