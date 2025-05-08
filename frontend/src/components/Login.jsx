@@ -78,7 +78,7 @@ export default function Login() {
                 <div className="d-flex justify-content-center">
                   <button
                     type="submit"
-                    className="btn border border-dark me-2"
+                    className="btn border border-dark m-2"
                     style={{ background: "#979796", color: "black" }}
                   >
                     <b>LOG IN</b>
@@ -86,7 +86,7 @@ export default function Login() {
                 </div>
               </form>
               <div className="mt-2"> 
-                <Link to={"/change-password"} className="text-dark d-flex text-decoration-underline justify-content-center">Forgate password</Link>
+                <Link to={"/change-password"} className="textcolor d-flex text-decoration-underline justify-content-center hover-blue">Forgate password</Link>
               </div>
             </div>
 

@@ -29,6 +29,10 @@ export default function Register() {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
+      if (data.password.length < 8) {
+        setErrorMessage("Password must be at least 8 characters long");
+        return;
+      }
       const response = await axios.post(URL, data);
       setMessage(response.data.message);
       setData({ first_name: "", last_name: "", email: "", password: "" });
@@ -146,13 +150,23 @@ export default function Register() {
                 <button
                   className="btn btn-danger"
                   onClick={() => {
-                    setErrorMessage("");
-                    setData({
-                      first_name: "",
-                      last_name: "",
-                      email: "",
-                      password: "",
-                    });
+                    if (
+                      errorMessage === "Password must be at least 8 characters long"
+                    ) {
+                      setErrorMessage("");
+                      setData((prev) => ({
+                        ...prev,
+                        password: "",
+                      }));
+                    } else {
+                      setErrorMessage("");
+                      setData({
+                        first_name: "",
+                        last_name: "",
+                        email: "",
+                        password: "",
+                      });
+                    }
                   }}
                 >
                   Close

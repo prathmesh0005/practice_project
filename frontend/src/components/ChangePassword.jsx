@@ -13,11 +13,31 @@ function ChangePassword() {
 
   async function handleClick(e) {
     e.preventDefault();
-    if (password === confirmPassword) {
-      const response = await axios.put(url, { email, password });
-      setMessage(response.data.message);
+    
+    try {
+      if (password !== confirmPassword) {
+        setMessage("Passwords do not match");
+        return;
+      }
+        const response = await axios.put(url, { email, password },{
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setMessage(response.data.message);
+      
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message )
+              setMessage(error.response.data.message || "An error occurred");
+            } else if (error.request) {
+              setMessage("No response from server");
+            } else {
+              setMessage("Error: " + error.message);
+            }
     }
   }
+  
   return (
     <>
       <div
@@ -84,8 +104,13 @@ function ChangePassword() {
             <button
               className="btn btn-warning"
               onClick={() => {
-                // setMessage("");
-                navigate("/login");
+                setMessage("")
+                setEmail("")
+                setPassword("")
+                setConfirmPassword("")
+                if(message==="Password change Successfully."){
+                  navigate("/login");
+                }
               }}
             >
               Close
