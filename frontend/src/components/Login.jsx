@@ -24,7 +24,7 @@ export default function Login() {
       );
       const data = response.data;
       //console.log(data.user.role);
-      login(data.user, data.access_token);
+      login(data.user, data.access_token, data.refresh_token);
       setIsLoggedIn(true);
       data.user.role === "user" ? navigate("/dashboard") : navigate("/admin");
     } catch (error) {

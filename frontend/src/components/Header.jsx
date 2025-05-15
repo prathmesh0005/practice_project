@@ -26,6 +26,7 @@ export default function Header() {
       setIsLoggedIn(false);
       setUser(null);
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken")
       localStorage.removeItem("user");
       navigate("/login");
     } catch (error) {

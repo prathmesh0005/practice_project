@@ -1,6 +1,7 @@
 import axios from "axios";
 import Order from "./Order";
 import { useEffect, useState } from "react";
+import api from "../utils/axiosInstance.js"
 
 const URL = `http://localhost:3000/api/user/user-previous-order`;
 
@@ -25,7 +26,7 @@ export default function Dashboard() {
   const fetchUserPreviousOrder = async () => {
     try {
       const reqData = { userId: user.id };
-      const res = await axios.post(URL, reqData);
+      const res = await api.post(URL, reqData);
       setuserOrderInfo(res.data.result[0]);
     } catch (error) {
       console.error(error);

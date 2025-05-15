@@ -26,10 +26,11 @@ export const AuthProvider = ({children})=>{
 
 
     //Function to ligin user
-    const login = (userData, accessToken) => {
+    const login = (userData, accessToken, refreshToken) => {
         setUser(userData);
-       
+        
         localStorage.setItem("accessToken",accessToken);
+        localStorage.setItem("refreshToken", refreshToken)
         localStorage.setItem("user", JSON.stringify(userData));
     }
 
@@ -42,6 +43,7 @@ export const AuthProvider = ({children})=>{
         setUser(null);
         setIsLoggedIn(false);
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         localStorage.removeItem("user")
     }
     

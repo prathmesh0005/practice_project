@@ -1,6 +1,7 @@
 import {  useEffect, useState } from "react";
 // import UserOrder from "./UserOrder";
-import axios from "axios";
+//import axios from "axios";
+import api from '../utils/axiosInstance.js'
 import { useNavigate } from "react-router-dom";
 // import { AuthContext } from "../contaxt/AuthContext";
 
@@ -14,7 +15,7 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
   const [order, setOrder] = useState(); //store item id
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("accessToken");
+  //const accessToken = localStorage.getItem("accessToken");
   // const {protectedRoute} = useContext(AuthContext);
 
   // eslint-disable-next-line react/prop-types
@@ -23,36 +24,36 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
 
   useEffect(() => {
     async function fetchItem() {
-      const response = await axios.get(itemUrl, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await api.get(itemUrl);
       setItems(response.data.items);
     }
     fetchItem();
   }, []);
 
-  const requestData = {
-    user_id: user.id,
-    items_id: order,
-  };
-
+  
   const handleOrder = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
 
+    const parsedOrder = parseInt(order);
+    const requestData = {
+      user_id: user.id,
+      items_id: parsedOrder,
+    };
+    console.log(requestData)
       // const accessToken = await protectedRoute(); // Wait for it to finish
       // if (!accessToken) {
       //   console.log("Authorization failed");
       //   return;
       // }
-      await axios.post(URL, requestData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      // console.log(res.data)
+      //console.log("Order Payload", requestData)
+      try {
+        await api.post(URL, requestData,{
+          headers: {"Content-Type":"application/json"}
+        });
+      } catch (error) {
+        console.log(error)
+      }
       refreshOrderData();
     } catch (error) {
       console.log(error.message);
@@ -66,11 +67,7 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
         id: orderId,
         itemId: order,
       };
-      await axios.put(updateURL, updateData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      await api.put(updateURL, updateData,);
       refreshOrderData();
       localStorage.setItem("updatedOrder", JSON.stringify(order));
       navigate("/dashboard");
@@ -87,8 +84,7 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
     e.preventDefault();
     try {
       alert("Ary you sure to delete this order");
-      const res = await axios.delete(deleteURL);
-      // console.log(res.data);
+      await api.delete(deleteURL);
       refreshOrderData();
     } catch (error) {
       console.log(error.message);
