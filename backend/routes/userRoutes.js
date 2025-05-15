@@ -19,7 +19,6 @@ import {
   deleteParticularUserOrder,
   countUserOrder,
   refreshAccessToken,
-  checkAuth,
   changePassword
 } from "../controller/userController.js";
 import { allItems } from "../controller/itemController.js";
@@ -53,6 +52,5 @@ router.get("/order-count/:id", countUserOrder);
 
 router.put("/change-password",changePassword);
 
-router.get("/check",verifyJWT, checkAuth);
 
 export default router;

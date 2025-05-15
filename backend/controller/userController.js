@@ -155,14 +155,17 @@ export const userlogin = async (req, res) => {
 
         res.cookie("refresh_token", refresh_token, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production", // Only secure in production
-          sameSite: "none",
+          secure: false,
+          // secure: process.env.NODE_ENV === "production", // Only secure in production
+          // sameSite: "none",
+          sameSite:"lax",
           path: "/",
         });
 
         res.status(200).json({
           message: "Login successful",
           access_token,
+          refresh_token,
           user: {
             id: user.id,
             firstName: user.first_name,
@@ -496,21 +499,6 @@ export const countUserOrder = async (req, res) => {
       if (err) return res.status(400).json({ message: err.message });
 
       return res.status(200).json(data);
-    });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Internal Server error", error: error.message });
-    console.log(error);
-  }
-};
-
-export const checkAuth = async (req, res) => {
-  try {
-    const q = `SELECT id from users WHERE 1 = 0;`;
-    dbConnection.query(q, (err, data) => {
-      if (err) return res.status(401).json({ message: err.message });
-      return res.status(200).json({ message: "OK" });
     });
   } catch (error) {
     res

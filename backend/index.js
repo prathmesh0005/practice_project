@@ -9,8 +9,6 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-app.use(express.json());
-app.use(cookieParser());
 app.use(
   cors({
     origin: ["http://localhost:5173","http://localhost:4173"],
@@ -18,6 +16,22 @@ app.use(
   })
 );
 
+//---------------
+//  Fix CORS on 401/400/etc
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   next();
+// });
+
+// app.options("*", cors({
+//   origin: ["http://localhost:5173", "http://localhost:4173"],
+//   credentials: true
+// }));
+//---------------
+
+app.use(express.json());
+app.use(cookieParser());
 // dbConnection.connect(function (err) {
 //   if (err) throw err;
 //   console.log(" Database Connected!");
