@@ -4,8 +4,10 @@ import { dbConnection } from '../config/db.js';
 
 export const  verifyJWT = (req, res, next) =>{
     try {
-    const token = req.cookies?.access_token || req.header("Authorization")?.split(" ")[1];
-
+    //const token = req.cookies?.access_token || req.header("Authorization")?.split(" ")[1];
+    const token = req.header("Authorization")?.split(" ")[1];
+    
+    //console.log(token)
     if(!token){
         return res.status(400).json({message:"token not found"})
     }

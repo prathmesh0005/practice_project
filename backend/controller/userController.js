@@ -45,7 +45,7 @@ export const refreshAccessToken = (req, res) => {
     }
 
     const user = data[0];
-
+  
     jwt.verify(
       refresh_token,
       process.env.REFRESH_TOKEN_SECRETE,
@@ -53,7 +53,18 @@ export const refreshAccessToken = (req, res) => {
         if (err)
           return res.status(403).json({ message: "Invalid refresh token" });
 
-        const newAccessToken = generateAccessToken(user.id);
+        const newAccessToken = jwt.sign(
+          {
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+          },
+
+          process.env.ACCESS_TOKEN_SECRETE,
+          {
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+          }
+        );
 
         res.json({ access_token: newAccessToken });
       }
@@ -158,7 +169,7 @@ export const userlogin = async (req, res) => {
           secure: false,
           // secure: process.env.NODE_ENV === "production", // Only secure in production
           // sameSite: "none",
-          sameSite:"lax",
+          sameSite: "lax",
           path: "/",
         });
 
