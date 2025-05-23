@@ -24,11 +24,7 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // If access token expired
-    if (
-      error.response?.status === 401 &&
-      !originalRequest._retry
-    ) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
         const refreshRes = await axios.post(
@@ -38,19 +34,14 @@ api.interceptors.response.use(
         );
 
         const newAccessToken = refreshRes.data.access_token;
-        // axios.defaults.headers.common[
-        //   "Authorization"
-        // ] = `Bearer ${newAccessToken}`;
+
         localStorage.setItem("accessToken", newAccessToken);
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 
-        
-
-        console.log(originalRequest.data);
         return axios(originalRequest);
       } catch (err) {
-        // Redirect to login or handle logout
-        window.location.href = "/login";
+        console.error("Refresh failed. Logging out.");
+        //add redirection to logout
         return Promise.reject(err);
       }
     }

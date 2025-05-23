@@ -1,7 +1,6 @@
-import {  useEffect, useState } from "react";
-// import UserOrder from "./UserOrder";
-//import axios from "axios";
-import api from '../utils/axiosInstance.js'
+import { useEffect, useState } from "react";
+
+import api from "../utils/axiosInstance.js";
 import { useNavigate } from "react-router-dom";
 // import { AuthContext } from "../contaxt/AuthContext";
 
@@ -15,8 +14,6 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
   const [order, setOrder] = useState(); //store item id
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-  //const accessToken = localStorage.getItem("accessToken");
-  // const {protectedRoute} = useContext(AuthContext);
 
   // eslint-disable-next-line react/prop-types
   const orderId = userOrderInfo?.orderId;
@@ -30,29 +27,20 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
     fetchItem();
   }, []);
 
-  
   const handleOrder = async (e) => {
     e.preventDefault();
     try {
-
-    const parsedOrder = parseInt(order);
-    const requestData = {
-      user_id: user.id,
-      items_id: parsedOrder,
-    };
-    console.log(requestData)
-      // const accessToken = await protectedRoute(); // Wait for it to finish
-      // if (!accessToken) {
-      //   console.log("Authorization failed");
-      //   return;
-      // }
-      //console.log("Order Payload", requestData)
+      const parsedOrder = parseInt(order);
+      const requestData = {
+        user_id: user.id,
+        items_id: parsedOrder,
+      };
       try {
-        await api.post(URL, requestData,{
-          headers: {"Content-Type":"application/json"}
+        await api.post(URL, requestData, {
+          headers: { "Content-Type": "application/json" },
         });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
       refreshOrderData();
     } catch (error) {
@@ -67,7 +55,7 @@ export default function Order({ userOrderInfo, refreshOrderData }) {
         id: orderId,
         itemId: order,
       };
-      await api.put(updateURL, updateData,);
+      await api.put(updateURL, updateData);
       refreshOrderData();
       localStorage.setItem("updatedOrder", JSON.stringify(order));
       navigate("/dashboard");
